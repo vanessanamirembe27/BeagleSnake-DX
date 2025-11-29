@@ -1,0 +1,12 @@
+# Build artifacts
+Makefile
+*.o
+moc_*.cpp
+moc_*.h
+BeagleSnake-DX
+
+# Distribution files
+*.zip
+
+# macOS system files
+.DS_Store
