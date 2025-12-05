@@ -4,5 +4,6 @@
     <file>icons/snakeheaddown.png</file>
     <file>icons/snakeheadleft.png</file>
     <file>icons/snakeheadright.png</file>
+    <file>assets/grass.png</file>
 </qresource>
 </RCC>
