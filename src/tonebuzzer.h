@@ -12,6 +12,7 @@ public:
     void playTone(int frequency, int durationMs);
     void playCoin();  //Mario coin sound
     void playCrash(); //collision sound
+    void playMarioStart();
 
 private:
     QString m_pwmPath;
