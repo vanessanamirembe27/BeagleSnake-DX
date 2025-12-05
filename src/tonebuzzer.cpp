@@ -46,3 +46,12 @@ void ToneBuzzer::playCrash()
   playTone(784, 120); //G5
   playTone(659, 180); //E5
 }
+//short Mario start level sound
+void ToneBuzzer::playMarioStart()
+{
+    playTone(1318, 120); //E6
+    playTone(1567, 120); //G6
+    playTone(2093, 150); //C7
+    playTone(1567, 120); //G6
+    playTone(1318, 150); //E6
+}
