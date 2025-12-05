@@ -1,5 +1,6 @@
 #include "snakegame.h"
 #include <QRandomGenerator>
+#include "tonebuzzer.h"
 
 SnakeGame::SnakeGame(int boardWidth, int boardHeight, QObject *parent)
     : QObject(parent),
@@ -9,6 +10,8 @@ SnakeGame::SnakeGame(int boardWidth, int boardHeight, QObject *parent)
       m_boardHeight(boardHeight)
 {
     initGame();
+    //initialize buzzer
+    m_buzzer = new ToneBuzzer("/sys/class/pwm/pmwchip1/pmw0", this);
 }
 
 void SnakeGame::initGame()
@@ -112,6 +115,8 @@ void SnakeGame::checkCollision()
     // Wall collision
     if (head.x() < 0 || head.x() >= m_boardWidth ||
         head.y() < 0 || head.y() >= m_boardHeight) {
+        if (m_buzzer)
+            m_buzzer->playCrash();
         m_gameState = GameOver;
         emit gameOver();
         return;
@@ -120,6 +125,8 @@ void SnakeGame::checkCollision()
     // Self collision
     for (int i = 1; i < m_snake.size(); ++i) {
         if (head == m_snake.at(i)) {
+            if (m_buzzer)
+            m_buzzer->playCrash();
             m_gameState = GameOver;
             emit gameOver();
             return;
@@ -130,6 +137,9 @@ void SnakeGame::checkCollision()
     if (head == m_food) {
         m_score++;
         emit scoreChanged(m_score);
+        //Mario coin sound
+    if (m_buzzer)
+        m_buzzer->playCoin();
         placeFood();
     }
 }
