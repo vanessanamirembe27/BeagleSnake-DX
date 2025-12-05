@@ -4,5 +4,25 @@
     <file>icons/snakeheaddown.png</file>
     <file>icons/snakeheadleft.png</file>
     <file>icons/snakeheadright.png</file>
+    <file>icons/snakebodyup.png</file>
+    <file>icons/snakebodydown.png</file>
+    <file>icons/snakebodyleft.png</file>
+    <file>icons/snakebodyright.png</file>
+    <file>icons/snaketailup.png</file>
+    <file>icons/snaketaildown.png</file>
+    <file>icons/snaketailleft.png</file>
+    <file>icons/snaketailright.png</file>
+    <file>icons/snaketurnupleft.png</file>
+    <file>icons/snaketurnupright.png</file>
+    <file>icons/snaketurnleftup.png</file>
+    <file>icons/snaketurnleftdown.png</file>
+    <file>icons/snaketurnrightup.png</file>
+    <file>icons/snaketurnrightdown.png</file>
+    <file>icons/snaketurndownleft.png</file>
+    <file>icons/snaketurndownright.png</file>
+    <file>icons/snaketongueup.png</file>
+    <file>icons/snaketonguedown.png</file>
+    <file>icons/snaketongueleft.png</file>
+    <file>icons/snaketongueright.png</file>
 </qresource>
 </RCC>

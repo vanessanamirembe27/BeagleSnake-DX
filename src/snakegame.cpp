@@ -49,6 +49,11 @@ void SnakeGame::setDirection(Direction newDirection)
     m_direction = newDirection;
 }
 
+SnakeGame::Direction SnakeGame::getDirection() const
+{
+    return m_direction;
+}
+
 void SnakeGame::togglePause()
 {
     if (m_gameState == Playing) {

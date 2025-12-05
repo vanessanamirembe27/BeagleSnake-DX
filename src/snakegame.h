@@ -24,9 +24,12 @@ public:
         GameOver
     };
 
+
+
     void initGame();
     void tick();
     void setDirection(Direction newDirection);
+    Direction getDirection() const;
     void togglePause(); 
 
     const QList<QPoint>& getSnake() const;

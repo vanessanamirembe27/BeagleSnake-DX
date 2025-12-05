@@ -13,14 +13,17 @@ TEMPLATE = app
 SOURCES += \
     src/main.cpp \
     src/snakegame.cpp \
-    src/gameview.cpp
+    src/gameview.cpp \
+    src/gamewindow.cpp
 
 # Add all your header files (.h).
 HEADERS += \
     src/snakegame.h \
     src/gameview.h \
-    src/config.h
+    src/config.h \
+    src/gamewindow.h
 
-# It's good practice to specify the C++ standard.
-# Your use of 'constexpr' in config.h requires at least C++11.
-CONFIG += c++11
+#resource files
+RESOURCES += \
+    resources.qrc
+
