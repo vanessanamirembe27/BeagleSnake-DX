@@ -5,6 +5,8 @@
 #include <QList>
 #include <QPoint>
 
+class ToneBuzzer;
+
 class SnakeGame : public QObject
 {
     Q_OBJECT
@@ -52,6 +54,7 @@ private:
 
     const int m_boardWidth;
     const int m_boardHeight;
+    ToneBuzzer *m_buzzer;
 };
 
 #endif // SNAKEGAME_H
