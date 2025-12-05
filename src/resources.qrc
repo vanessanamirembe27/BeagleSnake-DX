@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+    <file>icons/snakeheadup.png</file>
+    <file>icons/snakeheaddown.png</file>
+    <file>icons/snakeheadleft.png</file>
+    <file>icons/snakeheadright.png</file>
+</qresource>
+</RCC>
