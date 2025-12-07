@@ -24,5 +24,7 @@
     <file>icons/snaketonguedown.png</file>
     <file>icons/snaketongueleft.png</file>
     <file>icons/snaketongueright.png</file>
+    <file>icons/beagle.png</file>
+    <file>icons/grass.png</file>
 </qresource>
 </RCC>

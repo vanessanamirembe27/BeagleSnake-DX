@@ -34,7 +34,7 @@ namespace Config {
     // --- Game Mechanics ---
     // The speed of the game, representing the delay between ticks in milliseconds.
     // A lower value makes the game faster.
-    constexpr int GAME_TICK_SPEED_MS = 750; // 1000 ms = 1 second
+    constexpr int GAME_TICK_SPEED_MS = 200; // 1000 ms = 1 second
 
 
     // --- Visuals & Colors ---

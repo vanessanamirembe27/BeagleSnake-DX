@@ -1,5 +1,6 @@
 #include "snakegame.h"
 #include <QRandomGenerator>
+#include "tonebuzzer.h"
 
 SnakeGame::SnakeGame(int boardWidth, int boardHeight, QObject *parent)
     : QObject(parent),
@@ -8,11 +9,20 @@ SnakeGame::SnakeGame(int boardWidth, int boardHeight, QObject *parent)
       m_boardWidth(boardWidth),
       m_boardHeight(boardHeight)
 {
+
+    m_buzzer = new ToneBuzzer("/sys/class/pwm/pwmchip4", this); //pwmchip4 / eHRPWM1A //P9_14
+    
     initGame();
 }
 
 void SnakeGame::initGame()
 {
+
+    // Play the startup sound
+    if (m_buzzer) {
+        m_buzzer->playStartSound();
+    }
+
     m_gameState = Playing;
     m_direction = Right;
     m_score = 0;
@@ -117,6 +127,8 @@ void SnakeGame::checkCollision()
     // Wall collision
     if (head.x() < 0 || head.x() >= m_boardWidth ||
         head.y() < 0 || head.y() >= m_boardHeight) {
+        if (m_buzzer)
+            m_buzzer->playCrash();
         m_gameState = GameOver;
         emit gameOver();
         return;
@@ -125,6 +137,8 @@ void SnakeGame::checkCollision()
     // Self collision
     for (int i = 1; i < m_snake.size(); ++i) {
         if (head == m_snake.at(i)) {
+            if (m_buzzer)
+                m_buzzer->playCrash(); 
             m_gameState = GameOver;
             emit gameOver();
             return;
@@ -135,6 +149,19 @@ void SnakeGame::checkCollision()
     if (head == m_food) {
         m_score++;
         emit scoreChanged(m_score);
+
+        // --- WIN CONDITION CHECK ---
+        // Check if the snake has filled the entire board
+        if (m_snake.size() == (m_boardWidth * m_boardHeight)) {
+            m_gameState = GameWon;
+            emit gameWon();
+            // Don't place new food, the board is full.
+            return;
+        }
+        // --- END OF WIN CHECK ---
+         //Mario coin sound
+         if (m_buzzer)
+             m_buzzer->playCoin();
         placeFood();
     }
 }

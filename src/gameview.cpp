@@ -12,13 +12,15 @@ GameView::GameView(SnakeGame *game, QWidget *parent)
     m_scene = new QGraphicsScene(0, 0, Config::SCREEN_WIDTH_PX, Config::SCREEN_HEIGHT_PX);
     setScene(m_scene);
 
+    loadSprites();
+
     // Set the background to black to create the border effect
-    setBackgroundBrush(Config::COLOR_BACKGROUND);
+    setBackgroundBrush(QBrush(m_backgroundPixmap));
     // Remove scroll bars
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    loadSnakeSprites();
+
 
 
     // Connect the game's update signal to our view's update slot
@@ -50,30 +52,38 @@ void GameView::keyPressEvent(QKeyEvent *event)
 
 void GameView::mousePressEvent(QMouseEvent *event)
 {
+    // --- THIS IS THE NEW LOGIC ---
+
+    // Get the current direction of the snake
+    SnakeGame::Direction currentDirection = m_game->getDirection();
+
     // Get the position of the tap
     QPoint tapPos = event->pos();
 
-    // Define the boundaries for the control regions (dividing the screen into thirds)
-    int thirdWidth = Config::SCREEN_WIDTH_PX / 3;
-    int thirdHeight = Config::SCREEN_HEIGHT_PX / 3;
-
-    // Check which region the tap is in
-    if (tapPos.y() < thirdHeight) {
-        // Top region
-        m_game->setDirection(SnakeGame::Up);
-    } else if (tapPos.y() > (2 * thirdHeight)) {
-        // Bottom region
-        m_game->setDirection(SnakeGame::Down);
-    } else if (tapPos.x() < thirdWidth) {
-        // Left region (and not top or bottom)
-        m_game->setDirection(SnakeGame::Left);
-    } else if (tapPos.x() > (2 * thirdWidth)) {
-        // Right region (and not top or bottom)
-        m_game->setDirection(SnakeGame::Right);
-    } else {
-        // Center region, do nothing or maybe pause the game
-        // m_game->togglePause(); // Optional: tapping the center pauses (if not implemented in gamewindow.cpp/.h)
+    // Check if the snake is moving horizontally (Left or Right)
+    if (currentDirection == SnakeGame::Left || currentDirection == SnakeGame::Right) {
+        // If moving horizontally, the only valid new moves are Up or Down.
+        // Check if the tap is in the top half of the screen.
+        if (tapPos.y() < (Config::SCREEN_HEIGHT_PX / 2)) {
+            m_game->setDirection(SnakeGame::Up);
+        } else {
+            // Tap is in the bottom half.
+            m_game->setDirection(SnakeGame::Down);
+        }
+    } 
+    // Check if the snake is moving vertically (Up or Down)
+    else if (currentDirection == SnakeGame::Up || currentDirection == SnakeGame::Down) {
+        // If moving vertically, the only valid new moves are Left or Right.
+        // Check if the tap is in the left half of the screen.
+        if (tapPos.x() < (Config::SCREEN_WIDTH_PX / 2)) {
+            m_game->setDirection(SnakeGame::Left);
+        } else {
+            // Tap is in the right half.
+            m_game->setDirection(SnakeGame::Right);
+        }
     }
+
+    // --- END OF NEW LOGIC ---
 
     // Call the base class implementation
     QGraphicsView::mousePressEvent(event);
@@ -92,22 +102,26 @@ void GameView::updateView()
 
 void GameView::drawFood()
 {
-    // 3. Get the food's grid position from the game logic
     QPoint foodPos = m_game->getFood();
 
-    // Draw a rectangle for the food, applying the offsets
-    QGraphicsRectItem *foodItem = new QGraphicsRectItem(
-        (foodPos.x() * Config::TILE_SIZE_PX) + Config::X_OFFSET,
-        (foodPos.y() * Config::TILE_SIZE_PX) + Config::Y_OFFSET,
-        Config::TILE_SIZE_PX,
-        Config::TILE_SIZE_PX
-    );
-    foodItem->setBrush(Config::COLOR_FOOD); // Make the food red
+    // Create a pixmap item for the food sprite
+    QGraphicsPixmapItem *foodItem = new QGraphicsPixmapItem(m_foodPixmap.scaled(Config::TILE_SIZE_PX, Config::TILE_SIZE_PX, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    
+    // Set its position using the offsets
+    foodItem->setPos((foodPos.x() * Config::TILE_SIZE_PX) + Config::X_OFFSET,
+                     (foodPos.y() * Config::TILE_SIZE_PX) + Config::Y_OFFSET);
+
     m_scene->addItem(foodItem);
 }
 
-void GameView::loadSnakeSprites()
+void GameView::loadSprites()
 {
+    //load background
+    m_backgroundPixmap = QPixmap(":/icons/grass.png");
+
+    // Load Food
+    m_foodPixmap = QPixmap(":/icons/beagle.png");
+
     // Load Head
     m_headUp = QPixmap(":/icons/snakeheadup.png");
     m_headDown = QPixmap(":/icons/snakeheaddown.png");

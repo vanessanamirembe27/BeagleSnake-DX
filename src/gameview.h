@@ -24,10 +24,14 @@ protected:
 private:
     void drawFood();
     void drawSnake();
-    void loadSnakeSprites(); //load snake images 
+    void loadSprites(); //load snake images 
 
     QGraphicsScene *m_scene; //scene instance 
     SnakeGame *m_game; // The game logic instance pointer (not owner)
+
+    QPixmap m_backgroundPixmap; //pixmap for background image
+
+    QPixmap m_foodPixmap; //pixmap for food image
 
     QPixmap m_headUp, m_headDown, m_headLeft, m_headRight;
     QPixmap m_tongueUp, m_tongueDown, m_tongueLeft, m_tongueRight;

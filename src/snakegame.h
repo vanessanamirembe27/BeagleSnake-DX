@@ -5,6 +5,8 @@
 #include <QList>
 #include <QPoint>
 
+class ToneBuzzer;
+
 class SnakeGame : public QObject
 {
     Q_OBJECT
@@ -21,7 +23,8 @@ public:
     enum GameState {
         Playing,
         Paused,
-        GameOver
+        GameOver,
+        GameWon 
     };
 
 
@@ -41,6 +44,7 @@ signals:
     void gameUpdated();
     void scoreChanged(int score);
     void gameOver();
+    void gameWon();
 
 private:
     void moveSnake();
@@ -55,6 +59,8 @@ private:
 
     const int m_boardWidth;
     const int m_boardHeight;
+    ToneBuzzer *m_buzzer;
+
 };
 
 #endif // SNAKEGAME_H
