@@ -27,6 +27,8 @@ private slots:
     // Game state handling
     void handleGameOver();
     void handleGameWon();
+    void pauseGame();   
+    void resumeGame();  
     void restartGame();
     void updateScore(int score);
 
@@ -34,6 +36,7 @@ private:
     // Functions to build each screen
     void createMenuScreen();
     void createGameScreen();
+    void createPauseScreen(); 
     void createGameOverScreen();
     void connectSignals();
 
@@ -46,6 +49,7 @@ private:
     QStackedWidget *m_stack;
     QWidget *m_menuScreen;
     QWidget *m_gameScreen;
+    QWidget *m_pauseScreen;
     QWidget *m_gameOverScreen;
 
     // High score tracking
@@ -57,6 +61,7 @@ private:
 
     // Game Screen
     QLabel *m_scoreLabel_game;
+    QPushButton *m_pauseButton;
 
     // Game Over Screen
     QLabel *m_gameOverTitle_gameOver; 

@@ -11,7 +11,6 @@ ToneBuzzer::ToneBuzzer(const QString &pwmChipPath, QObject *parent)
 
     m_pwmChannelPath = m_pwmChipPath + "/pwm-4:0";
 
-    // --- THIS IS THE NEW EXPORT LOGIC ---
     QDir pwmChannelDir(m_pwmChannelPath);
     // Check if the pwm0 directory does NOT exist
     if (!pwmChannelDir.exists()) {
@@ -20,7 +19,6 @@ ToneBuzzer::ToneBuzzer(const QString &pwmChipPath, QObject *parent)
         writeFile(m_pwmChipPath + "/export", "0");
         QThread::msleep(100);
     }
-    // --- END OF NEW LOGIC ---
     // Set up the timer
     m_playbackTimer = new QTimer(this);
     // Connect the timer's timeout signal to our slot that stops the current note

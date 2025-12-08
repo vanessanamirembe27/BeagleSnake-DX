@@ -52,7 +52,6 @@ void GameView::keyPressEvent(QKeyEvent *event)
 
 void GameView::mousePressEvent(QMouseEvent *event)
 {
-    // --- THIS IS THE NEW LOGIC ---
 
     // Get the current direction of the snake
     SnakeGame::Direction currentDirection = m_game->getDirection();
@@ -82,8 +81,6 @@ void GameView::mousePressEvent(QMouseEvent *event)
             m_game->setDirection(SnakeGame::Right);
         }
     }
-
-    // --- END OF NEW LOGIC ---
 
     // Call the base class implementation
     QGraphicsView::mousePressEvent(event);

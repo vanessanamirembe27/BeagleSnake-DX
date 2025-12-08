@@ -25,11 +25,13 @@ GameWindow::GameWindow(QWidget *parent)
     // Build each screen
     createMenuScreen();
     createGameScreen();
+    createPauseScreen();
     createGameOverScreen();
 
     // Add screens to the stack
     m_stack->addWidget(m_menuScreen);
     m_stack->addWidget(m_gameScreen);
+    m_stack->addWidget(m_pauseScreen); 
     m_stack->addWidget(m_gameOverScreen);
 
     // Set the main layout for the window
@@ -80,23 +82,46 @@ void GameWindow::createGameScreen()
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
-    // 1. Create the score label.
-    m_scoreLabel_game = new QLabel("Score: 0", m_gameScreen);
-    m_scoreLabel_game->setAlignment(Qt::AlignCenter); // Center the text
-    // Set a fixed height equal to the top border size from config.h
-    m_scoreLabel_game->setFixedHeight(Config::Y_OFFSET);
+    // 1. Create a container widget for the top bar
+    QWidget *topBar = new QWidget();
+    topBar->setFixedHeight(Config::Y_OFFSET);
+    QHBoxLayout *topBarLayout = new QHBoxLayout(topBar);
+    topBarLayout->setContentsMargins(5, 0, 5, 0); // Add some horizontal padding
 
-    // 2. Add the score label to the layout.
-    layout->addWidget(m_scoreLabel_game);
+    // 2. Create the score label and pause button
+    m_scoreLabel_game = new QLabel("Score: 0", topBar);
+    m_pauseButton = new QPushButton("Pause", topBar);
+    connect(m_pauseButton, &QPushButton::clicked, this, &GameWindow::pauseGame);
 
-    // 3. Add the game view to the layout. It will be placed below the score label.
+    // 3. Add widgets to the top bar layout
+    topBarLayout->addWidget(m_scoreLabel_game, 1, Qt::AlignLeft); // Align left, stretch factor 1
+    topBarLayout->addStretch(2); // Add more stretch in the middle
+    topBarLayout->addWidget(m_pauseButton, 1, Qt::AlignRight); // Align right, stretch factor 1
+    
+    // 4. Add the top bar and game view to the main layout
+    layout->addWidget(topBar);
     layout->addWidget(m_view);
 
-    // 4. Crucial Step: Adjust the game view's margin to pull it up.
-    // This makes the game view overlap the space taken by the score label,
-    // effectively placing the score label inside the game view's top border.
-    // The top margin is negative the height of the score label.
     m_view->setContentsMargins(0, -Config::Y_OFFSET, 0, 0);
+}
+
+void GameWindow::createPauseScreen()
+{
+    m_pauseScreen = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout(m_pauseScreen);
+    layout->setSpacing(20);
+    layout->addStretch();
+
+    QLabel *title = new QLabel("Paused", m_pauseScreen);
+    title->setAlignment(Qt::AlignCenter);
+    title->setFont(QFont("Sans", 36, QFont::Bold));
+
+    QPushButton *resumeButton = new QPushButton("Resume", m_pauseScreen);
+    connect(resumeButton, &QPushButton::clicked, this, &GameWindow::resumeGame);
+
+    layout->addWidget(title);
+    layout->addWidget(resumeButton);
+    layout->addStretch();
 }
 
 void GameWindow::createGameOverScreen()
@@ -212,4 +237,16 @@ void GameWindow::updateScore(int score)
 {
     // This updates the score label on the main game screen
     m_scoreLabel_game->setText(QString("Score: %1").arg(score));
+}
+
+void GameWindow::pauseGame()
+{
+    m_timer->stop();
+    m_stack->setCurrentWidget(m_pauseScreen);
+}
+
+void GameWindow::resumeGame()
+{
+    m_stack->setCurrentWidget(m_gameScreen);
+    m_timer->start(Config::GAME_TICK_SPEED_MS);
 }

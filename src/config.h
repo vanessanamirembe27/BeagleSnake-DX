@@ -13,15 +13,16 @@ namespace Config {
     constexpr int SCREEN_WIDTH_PX = 480;
     constexpr int SCREEN_HEIGHT_PX = 272;
 
-    // Define the playable area dimensions and offsets for centering
-    constexpr int PLAY_AREA_WIDTH_PX = 448;
-    constexpr int PLAY_AREA_HEIGHT_PX = 240;
-    constexpr int X_OFFSET = (SCREEN_WIDTH_PX - PLAY_AREA_WIDTH_PX) / 2; // (480 - 448) / 2 = 16
-    constexpr int Y_OFFSET = (SCREEN_HEIGHT_PX - PLAY_AREA_HEIGHT_PX) / 2; // (272 - 240) / 2 = 16
+    // Define the border size. All other dimensions will be calculated from this.
+    constexpr int BORDER_SIZE = 32; 
 
+    // Define the playable area dimensions and offsets based on BORDER_SIZE
+    constexpr int PLAY_AREA_WIDTH_PX = SCREEN_WIDTH_PX - (2 * (BORDER_SIZE-16)); // 480 - 16 = 464
+    constexpr int PLAY_AREA_HEIGHT_PX = SCREEN_HEIGHT_PX - (2 * BORDER_SIZE); // 272 - 16 = 256
+    constexpr int X_OFFSET = BORDER_SIZE - 16; // Adjusted to center the play area
+    constexpr int Y_OFFSET = BORDER_SIZE;
 
     // --- Game Grid & Tile ---
-    // The size of a single game tile (e.g., a snake segment) in pixels.
     // Choose a value that divides evenly into the screen dimensions.
     constexpr int TILE_SIZE_PX = 16;
 

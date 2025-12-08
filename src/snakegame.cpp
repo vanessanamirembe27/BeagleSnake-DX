@@ -150,7 +150,6 @@ void SnakeGame::checkCollision()
         m_score++;
         emit scoreChanged(m_score);
 
-        // --- WIN CONDITION CHECK ---
         // Check if the snake has filled the entire board
         if (m_snake.size() == (m_boardWidth * m_boardHeight)) {
             m_gameState = GameWon;
@@ -158,7 +157,6 @@ void SnakeGame::checkCollision()
             // Don't place new food, the board is full.
             return;
         }
-        // --- END OF WIN CHECK ---
          //Mario coin sound
          if (m_buzzer)
              m_buzzer->playCoin();

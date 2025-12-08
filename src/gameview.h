@@ -43,7 +43,7 @@ private:
     QPixmap m_turnUL, m_turnUR, m_turnLU, m_turnLD, m_turnRU, m_turnRD, m_turnDL, m_turnDR;
 
     //ABSOLETE NOW- moved to config.h 
-    // We need to decide the size of each grid cell in pixels
+    //need to decide the size of each grid cell in pixels
     //const int m_cellSize = 16; //16 x 16 pixel cells 
 };
 

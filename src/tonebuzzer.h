@@ -23,8 +23,8 @@ public:
     void playStartSound(); 
 
 private slots:
-    void processNextNote(); // <-- Add: Slot to play the next note in the queue
-    void stopCurrentNote(); // <-- Add: Slot to stop the current note after its duration
+    void processNextNote(); 
+    void stopCurrentNote(); 
 
 private:
     void writeFile(const QString &filePath, const QByteArray &value);
@@ -32,10 +32,10 @@ private:
     void playTone(int frequency, int durationMs); // We'll keep this to add notes to the queue
     
     QString m_pwmChannelPath; // Renamed for clarity
-    QString m_pwmChipPath;    // <-- ADD THIS
+    QString m_pwmChipPath;   
 
-    QQueue<Note> m_noteQueue; // <-- Add: The queue of notes to play
-    QTimer *m_playbackTimer;  // <-- Add: The timer to drive the playback
-    bool m_isPlaying = false; // <-- Add: A flag to prevent overlapping notes
+    QQueue<Note> m_noteQueue; 
+    QTimer *m_playbackTimer;  
+    bool m_isPlaying = false; 
 };
 #endif 
