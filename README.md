@@ -1,3 +1,5 @@
+Jason Pliszak + Vanessa Namirembe
+
 BeagleSnake-DX is a hardware-accelerated snake game built using the Qt Graphics framework designed to run on the BeagleBone with an attached LCD Display.
 
 Overview
