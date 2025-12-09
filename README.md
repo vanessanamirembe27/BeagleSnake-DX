@@ -1,7 +1,7 @@
 BeagleSnake-DX is a hardware-accelerated snake game built using the Qt Graphics framework designed to run on the BeagleBone with an attached LCD Display.
 
 Overview
-- Fully functional Snake Game using Qt Framework 
+	- Fully functional Snake Game using Qt Framework 
 	- LCD 4.3" display 
 	- BBB Rev. C (runs/hosts game)
 	- smooth responsive gameplay 
@@ -11,7 +11,7 @@ Overview
 	- Polished UI 
 	- High score Tracking 
   
-  How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/Project instructions)
+How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/Project instructions)
   1. clone git repo onto local device 
   2. Compile with resources and toolchain contained within $EC535/ folder set up for Qt 5.15.2 
 	2a. Steps to Compile
@@ -38,7 +38,7 @@ Overview
 				- username: root 
 				- password: ec535 
 		- rz then... cmd A + cmd S 
-		- <enter file path to executable>
+		- enter file path to executable
 		- wait for transfer to complete...
   3. Connect Devices to BBB 
 	- connect USB keyboard to USB port on BBB 
