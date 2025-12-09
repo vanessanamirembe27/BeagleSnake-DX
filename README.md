@@ -43,16 +43,16 @@ How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/P
 		- enter file path to executable
 		- wait for transfer to complete...
   3. Connect Devices to BBB 
-	- connect USB keyboard to USB port on BBB 
-	- connect LCD Cape to BBB 
+	3a. connect USB keyboard to USB port on BBB 
+	3b. connect LCD Cape to BBB 
 		- connect LCD display to LCD Cape 
-	- connect Buzzer(+) to P9_14 on LCD Cape 
-	- connect Buzzer(-) to GND on LCD Cape 
+	3c. connect Buzzer(+) to P9_14 on LCD Cape 
+	3d. connect Buzzer(-) to GND on LCD Cape 
   4.  Run on BBB 
-	- chmod +x BeagleSnake-DX
-	- echo 0 > /sys/class/vtconsole/vtcon1/bind
-	- <./BeagleSnake-DX or ./BeagleSnake-DX_V4> -platform linuxfb
-	- HAVE FUN + PLAY SNAKE!!!
+	4a. chmod +x BeagleSnake-DX
+	4b. echo 0 > /sys/class/vtconsole/vtcon1/bind
+	4c. <./BeagleSnake-DX or ./BeagleSnake-DX_V4> -platform linuxfb
+	4d. HAVE FUN + PLAY SNAKE!!!
 
 
 
