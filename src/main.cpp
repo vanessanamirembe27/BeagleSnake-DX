@@ -1,5 +1,4 @@
 #include <QApplication> 
-//#include "gamewindow.h" add back once implemented pause screen/ title screen 
 #include "gamewindow.h"
 
 int main(int argc, char *argv[])

@@ -1,6 +1,3 @@
-# Specify the Qt modules your application uses.
-# You need 'widgets' for QApplication, QGraphicsView, etc.
-# 'gui' is needed for QColor, QMouseEvent, etc.
 QT += core gui widgets
 
 # Set the name of the final executable file.

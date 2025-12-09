@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-// Forward-declarations for pointer members
+// Forward decs for pointer members
 class QStackedWidget;
 class QLabel;
 class QPushButton;
@@ -11,13 +11,13 @@ class GameView;
 class SnakeGame;
 class QTimer;
 
-class GameWindow : public QWidget // Changed from QMainWindow to QWidget
+class GameWindow : public QWidget 
 {
     Q_OBJECT
 
 public:
-    explicit GameWindow(QWidget *parent = nullptr);
-    ~GameWindow();
+    explicit GameWindow(QWidget *parent = nullptr); //constructor, prevents compiler from making implicit type conversions
+    ~GameWindow(); 
 
 private slots:
     // Screen navigation
@@ -55,7 +55,6 @@ private:
     // High score tracking
     int m_highScore = 0;
 
-    // --- UI Elements ---
     // Menu Screen
     QLabel *m_highScoreLabel_menu;
 

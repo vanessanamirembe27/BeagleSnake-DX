@@ -9,7 +9,7 @@ SnakeGame::SnakeGame(int boardWidth, int boardHeight, QObject *parent)
       m_boardWidth(boardWidth),
       m_boardHeight(boardHeight)
 {
-
+    //initialize the buzzer
     m_buzzer = new ToneBuzzer("/sys/class/pwm/pwmchip4", this); //pwmchip4 / eHRPWM1A //P9_14
     
     initGame();
@@ -24,10 +24,11 @@ void SnakeGame::initGame()
     }
 
     m_gameState = Playing;
-    m_direction = Right;
+    m_direction = Right; //starts direction to the right 
     m_score = 0;
-    emit scoreChanged(m_score);
+    emit scoreChanged(m_score); //sets score to 0 on new game 
 
+    //make length of 3 snake in center of screen 
     m_snake.clear();
     int startX = m_boardWidth / 2;
     int startY = m_boardHeight / 2;
@@ -90,7 +91,7 @@ int SnakeGame::getScore() const
 
 SnakeGame::GameState SnakeGame::getGameState() const
 {
-    return m_gameState;
+    return m_gameState; //playing, paused, gameover, and gamewon
 }
 
 void SnakeGame::moveSnake()

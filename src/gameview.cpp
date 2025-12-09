@@ -20,13 +20,9 @@ GameView::GameView(SnakeGame *game, QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-
-
-
-    // Connect the game's update signal to our view's update slot
+    //connectedf the game's update signal to our view's update slot
     connect(m_game, &SnakeGame::gameUpdated, this, &GameView::updateView);
 
-    // Initial draw
     updateView();
 }
 
@@ -59,29 +55,26 @@ void GameView::mousePressEvent(QMouseEvent *event)
     // Get the position of the tap
     QPoint tapPos = event->pos();
 
-    // Check if the snake is moving horizontally (Left or Right)
+    // Check if the snake is moving horizontally (L or R)
     if (currentDirection == SnakeGame::Left || currentDirection == SnakeGame::Right) {
-        // If moving horizontally, the only valid new moves are Up or Down.
-        // Check if the tap is in the top half of the screen.
+        // If moving horizontally, the only valid new moves are Up or Down
         if (tapPos.y() < (Config::SCREEN_HEIGHT_PX / 2)) {
             m_game->setDirection(SnakeGame::Up);
         } else {
-            // Tap is in the bottom half.
+            // Tap is in the bottom half
             m_game->setDirection(SnakeGame::Down);
         }
     } 
     // Check if the snake is moving vertically (Up or Down)
     else if (currentDirection == SnakeGame::Up || currentDirection == SnakeGame::Down) {
-        // If moving vertically, the only valid new moves are Left or Right.
-        // Check if the tap is in the left half of the screen.
+        // If moving vertically, the only valid new moves are Left or Right
         if (tapPos.x() < (Config::SCREEN_WIDTH_PX / 2)) {
             m_game->setDirection(SnakeGame::Left);
         } else {
-            // Tap is in the right half.
+            // Tap is in the right half
             m_game->setDirection(SnakeGame::Right);
         }
     }
-
     // Call the base class implementation
     QGraphicsView::mousePressEvent(event);
 }
@@ -113,7 +106,7 @@ void GameView::drawFood()
 
 void GameView::loadSprites()
 {
-    //load background
+    // Load background
     m_backgroundPixmap = QPixmap(":/icons/grass.png");
 
     // Load Food
@@ -176,7 +169,7 @@ void GameView::drawSnake()
                      (headPos.y() * Config::TILE_SIZE_PX) + Config::Y_OFFSET);
     m_scene->addItem(headItem);
 
-    // --- Draw Tongue ---
+    // --- Draw Tongue --- (tongue allows for more intuitive display without unexepcted wall crashing)
     QPoint tongueGridPos = headPos;
     QPixmap tonguePixmap;
     switch (m_game->getDirection()) {
@@ -199,7 +192,6 @@ void GameView::drawSnake()
         QPixmap bodyPixmap;
         // Check if it's a straight piece
         if ((prev.x() == curr.x() && curr.x() == next.x()) || (prev.y() == curr.y() && curr.y() == next.y())) {
-            // It's straight. Determine direction from the segment before it.
             if (prev.y() > curr.y()) {
                 bodyPixmap = m_bodyDown; // Moving down
             } else if (prev.y() < curr.y()) {
@@ -209,19 +201,15 @@ void GameView::drawSnake()
             } else {
                 bodyPixmap = m_bodyLeft; // Moving left
             }
-        } else { // It's a turn. REPLACE THIS ENTIRE BLOCK.
+        } else { // It's a turn
 
             // Determine the direction FROM the tail-side segment (next) TO the current segment (curr)
-            // This logic describes the movement from the past (next) to the present (curr).
-            // We apply your rules by substituting 'prev' -> 'curr' and 'curr' -> 'next'.
             bool came_from_up = curr.y() < next.y();
             bool came_from_down = curr.y() > next.y();
             bool came_from_right = curr.x() > next.x();
             bool came_from_left = curr.x() < next.x();
 
             // Determine the direction FROM the current segment (curr) TO the head-side segment (prev)
-            // This logic describes the movement from the present (curr) to the future (prev).
-            // This directly uses your established rules.
             bool going_to_up = prev.y() < curr.y();
             bool going_to_down = prev.y() > curr.y();
             bool going_to_right = prev.x() > curr.x();

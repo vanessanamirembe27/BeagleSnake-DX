@@ -2,8 +2,8 @@
 #define TONEBUZZER_H
 #include <QObject>
 #include <QString>
-#include <QQueue> // <-- Add
-#include <QTimer>  // <-- Add
+#include <QQueue>
+#include <QTimer> 
 
 // A simple struct to hold a note
 struct Note {
@@ -29,9 +29,9 @@ private slots:
 private:
     void writeFile(const QString &filePath, const QByteArray &value);
     void setEnabled(bool enable);
-    void playTone(int frequency, int durationMs); // We'll keep this to add notes to the queue
+    void playTone(int frequency, int durationMs);
     
-    QString m_pwmChannelPath; // Renamed for clarity
+    QString m_pwmChannelPath;
     QString m_pwmChipPath;   
 
     QQueue<Note> m_noteQueue; 

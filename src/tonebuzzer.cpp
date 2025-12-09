@@ -1,18 +1,25 @@
 #include "tonebuzzer.h"
 #include <QFile>
-#include <QDebug> // Good for debugging
-#include <QDir>      // <-- ADD THIS
-#include <QThread> // Add this for the delay
+#include <QDebug> //debugging
+#include <QDir>  
+#include <QThread> //delay 
+
+//implements a aynchronous/non-blocking buzzer with beaglebone 
+//start/stop queue style signaling
+    //initiates note tone start + stop with Qtimer 
+
+//leaves main application thread free
 
 ToneBuzzer::ToneBuzzer(const QString &pwmChipPath, QObject *parent)
     : QObject(parent), m_pwmChipPath(pwmChipPath)
 {
+    //initialize the pin for PWM output (change from default setting)
     writeFile("/sys/devices/platform/ocp/ocp:P9_14_pinmux/state", "pwm");
 
     m_pwmChannelPath = m_pwmChipPath + "/pwm-4:0";
 
     QDir pwmChannelDir(m_pwmChannelPath);
-    // Check if the pwm0 directory does NOT exist
+    //Check if the pwm0 directory does NOT exist
     if (!pwmChannelDir.exists()) {
         qDebug() << "ToneBuzzer: Exporting PWM channel 0...";
         // Write "0" to the export file to create the pwm4 channel directory
@@ -69,7 +76,7 @@ void ToneBuzzer::playTone(int frequency, int durationMs)
     }
 }
 
-// This is the core of the new non-blocking logic
+//non-blocking logic
 void ToneBuzzer::processNextNote()
 {
     // If the queue is empty, we're done.
@@ -86,7 +93,7 @@ void ToneBuzzer::processNextNote()
         long period = 1e9 / currentNote.frequency;
         long duty_cycle = period / 2; // 50% duty cycle
 
-        // Use the channel path for writing
+        // Use the channel path for writing directly on BBB
         writeFile(m_pwmChannelPath + "/period", QByteArray::number(static_cast<qlonglong>(period)));
         writeFile(m_pwmChannelPath + "/duty_cycle", QByteArray::number(static_cast<qlonglong>(duty_cycle)));
         setEnabled(true);
@@ -110,11 +117,13 @@ void ToneBuzzer::stopCurrentNote()
     processNextNote();
 }
 
+//enable function to write to pwm channel on BBB
 void ToneBuzzer::setEnabled(bool enable)
 {
     writeFile(m_pwmChannelPath + "/enable", enable ? "1" : "0");
 }
 
+//file I/O operations
 void ToneBuzzer::writeFile(const QString &filePath, const QByteArray &value)
 {
     QFile file(filePath);
