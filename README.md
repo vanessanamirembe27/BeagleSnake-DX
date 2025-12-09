@@ -14,8 +14,8 @@ Overview
 	* High score Tracking 
   
 How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/Project instructions)
-###1. clone git repo onto local device 
-###2. Compile with resources and toolchain contained within $EC535/ folder set up for Qt 5.15.2 
+  1. clone git repo onto local device 
+  2. Compile with resources and toolchain contained within $EC535/ folder set up for Qt 5.15.2 
 	2a. Steps:
 		* ssh to vlsi or signals BU machine (local)
 		* source /ad/eng/courses/ec/ec535/bashrc_ec535 (remote)
@@ -29,7 +29,7 @@ How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/P
 			* qmake 
 			* make 
 		* scp <username>@vlsiXX:/home/<username>/EC535/lab5/BeagleSnake-DX/BeagleSnake-DX ~/Downloads/ (local)
-  ###3. Once Executable is available using above commands or by using Pre-compiled verion (BeagleSnake-DX_V4)
+  3. Once Executable is available using above commands or by using Pre-compiled verion (BeagleSnake-DX_V4)
 	3a. Steps:
 		* connect USB to TTL Serial Cable to local device + BBB
 			* green -> UART4_RXD
@@ -43,14 +43,14 @@ How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/P
 		* rz then... cmd A + cmd S 
 		* enter file path to executable
 		* wait for transfer to complete...
-  ###4. Connect Devices to BBB 
+  4. Connect Devices to BBB 
 	4a. Steps:
 		* USB keyboard to USB port on BBB 
 		*connect LCD Cape to BBB 
 		* connect LCD display to LCD Cape 
 		* connect Buzzer(+) to P9_14 on LCD Cape 
 		* connect Buzzer(-) to GND on LCD Cape 
-  ###5.  Run on BBB
+  5.  Run on BBB
 	5a. Steps:
 		* chmod +x BeagleSnake-DX
 		* echo 0 > /sys/class/vtconsole/vtcon1/bind
