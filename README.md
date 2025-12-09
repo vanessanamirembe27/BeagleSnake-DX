@@ -54,15 +54,15 @@ How to Run Code: (Assuming BBB and LCD cape are configured based on EC535 Lab5/P
 		* HAVE FUN + PLAY SNAKE!!!
 
 Division of Work:
-Front End:  
+* Front End:  
 * GameWindow.cpp/.h - 3/4 JP and 1/4 VN
 * GameView.cpp/.h - 1/2 VN and 1/2 JP
 * Main.cpp - VN
 * resources.qrc - 1/2 JP and 1/2 VN 
-Back End:
+* Back End:
 * SnakeGame.cpp/.h - JP 
 * ToneBuzzer.cpp/.h - 1/2 JP and 1/2 VN 
 
-Other files: 
+* Other files: 
 * config.h - VN 
 
